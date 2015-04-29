@@ -821,6 +821,7 @@ Value verifymessage(const Array& params, bool fHelp)
     return (CBitcoinAddress(key.GetPubKey()) == addr);
 }
 
+// PAPI - Prediction API 
 // A pure coinage spend transaction with burnt fees
 // First input scriptPubKeyHash matches single output
 Value submitvote(const Array& params, bool fHelp)
@@ -851,7 +852,7 @@ Value submitvote(const Array& params, bool fHelp)
 	//timestamp (little endian, unsigned, int64) for now
 	
 	
-    // payment curve
+    // payment curve - the 'tick'
     int64 nAmount = AmountFromValue(params[0]);
     if (nAmount < MIN_TXOUT_AMOUNT)
         throw JSONRPCError(-101, "Payment amount too small");
@@ -861,7 +862,7 @@ Value submitvote(const Array& params, bool fHelp)
 	// tick count
     int64 nTickCount = params[1].get_int64();
 	
-	// api-id
+	// api-id - http address
     if (params[2].type() == null_type || params[2].get_str().empty())
         throw JSONRPCError(-200, "API is empty");
     if (params[2].get_str().size() > 2083)
@@ -942,6 +943,7 @@ Value submitvote(const Array& params, bool fHelp)
     return wtx.GetHash().GetHex();
 }
 
+// for mpe - miner prediction entry
 Value submitwork(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 4))
