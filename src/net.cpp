@@ -1162,7 +1162,8 @@ unsigned int pnSeed[] =
 {
 	//0x321276b1, //50.18.118.177 nootera.com
     //0x62ca142d, //98.202.20.45 home.bown.net
-    0xc0a802d2, //192.168.2.210
+    //0xc0a802d2, //192.168.2.210
+    0x340880b2, //52.8.128.178 noocoin.iico.in (ec2)
 };
 
 void DumpAddresses()
