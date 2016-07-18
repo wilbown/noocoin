@@ -998,7 +998,7 @@ void MapPort(bool /* unused fMapPort */)
 // testnet dns seed begins with 't', all else are noocoin dns seeds.
 static const char *strDNSSeed[][2] = {
 	
-    {"seed", "home.bown.net"},
+    {"seed", "noocoin.iico.in"},
     //{"seed", "seed.noocoin.org"},
     //{"seednoo", "seednoo.noocoin.org"},
     //{"tnseed", "tnseed.noocoin.org"},
