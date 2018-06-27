@@ -394,7 +394,7 @@ bool CTxDB::ReadOwnerTxes(uint160 hash160, int nMinHeight, vector<CTransaction>&
         return false;
 
     unsigned int fFlags = DB_SET_RANGE;
-    loop
+    nooloop
     {
         // Read next record
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
@@ -558,7 +558,7 @@ bool CTxDB::LoadBlockIndex()
 
     // Load mapBlockIndex
     unsigned int fFlags = DB_SET_RANGE;
-    loop
+    nooloop
     {
         // Read next record
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
@@ -827,7 +827,7 @@ bool CAddrDB::LoadAddresses()
     if (!pcursor)
         return false;
 
-    loop
+    nooloop
     {
         // Read next record
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);

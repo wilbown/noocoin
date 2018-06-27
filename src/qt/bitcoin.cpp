@@ -159,8 +159,11 @@ int main(int argc, char *argv[])
 #endif
 
     // Internal string conversion is all UTF-8
+#ifndef IS_NOT_QT4
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
+#else
+#endif
 
     Q_INIT_RESOURCE(bitcoin);
     QApplication app(argc, argv);
