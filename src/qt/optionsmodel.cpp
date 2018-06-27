@@ -179,7 +179,13 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             break;
         case ProxyPort:
             {
+#ifndef IS_NOT_QT4
                 int nPort = atoi(value.toString().toAscii().data());
+#else
+                bool ok;
+                int nPort = value.toInt(&ok);
+                if (!ok) nPort = 0;
+#endif
                 if (nPort > 0 && nPort < std::numeric_limits<unsigned short>::max())
                 {
                     addrProxy.SetPort(nPort);

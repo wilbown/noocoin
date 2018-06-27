@@ -17,6 +17,10 @@
 #include <QDesktopServices>
 #include <QThread>
 
+#ifdef IS_NOT_QT4
+#include <QUrlQuery>
+#endif
+
 namespace GUIUtil {
 
 QString dateTimeStr(const QDateTime &date)
@@ -60,7 +64,14 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
     SendCoinsRecipient rv;
     rv.address = uri.path();
     rv.amount = 0;
-    QList<QPair<QString, QString> > items = uri.queryItems();
+
+    QList<QPair<QString, QString> > items ;
+#ifndef IS_NOT_QT4
+    items = uri.queryItems();
+#else
+    QUrlQuery query(uri);
+    items = query.queryItems();
+#endif
     for (QList<QPair<QString, QString> >::iterator i = items.begin(); i != items.end(); i++)
     {
         bool fShouldReturnFalse = false;
@@ -113,7 +124,11 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString HtmlEscape(const QString& str, bool fMultiLine)
 {
+#ifndef IS_NOT_QT4
     QString escaped = Qt::escape(str);
+#else
+    QString escaped = str.toHtmlEscaped();
+#endif
     if(fMultiLine)
     {
         escaped = escaped.replace("\n", "<br>\n");
@@ -148,7 +163,12 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     QString myDir;
     if(dir.isEmpty()) // Default to user documents location
     {
+#ifndef IS_NOT_QT4
         myDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#else
+      QStringList locs = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
+      myDir = locs.isEmpty() ? QApplication::applicationDirPath() : locs[0];
+#endif
     }
     else
     {
